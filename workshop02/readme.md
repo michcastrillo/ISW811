@@ -74,7 +74,7 @@ sudo systemctl restart apache2
 config.vm.synced_folder "sites/", "/home/vagrant/sites", owner: "www-data", group: "www-data"
 ```
  ![image sites](./images/vagrant%20sites.png "sites")
- 11. **Reiniciar maquina:** Luego de modificar el Vagrantfile debemos reiniciar la máquina para que los cambios surtan efectos
+11. **Reiniciar maquina:** Luego de modificar el Vagrantfile debemos reiniciar la máquina para que los cambios surtan efectos
  ```bash
 exit
 vagrant halt
@@ -110,20 +110,20 @@ Una vez creado el archivo .conf le agregamos el siguiente contenido:
   CustomLog ${APACHE_LOG_DIR}/michelle.isw811.xyz.access.log combined
 </VirtualHost>
 ```
-15. **Copiar "conf" a "sites-available".** Desde la máquina virtual se va a copiar el archivo.conf a lo que viene siendo la ruta de sitios disponibles de Apache2. Al final reiniciamos Apache.
+13. **Copiar "conf" a "sites-available".** Desde la máquina virtual se va a copiar el archivo.conf a lo que viene siendo la ruta de sitios disponibles de Apache2. Al final reiniciamos Apache.
 ```bash
     sudo cp /vagrant/confs/michelle.isw811.xyz.conf /etc/apache2/sites-available
     sudo apache2ctl -t
 ```
  ![image status](./images/syntax%20ok.png "status")
- 17. **Configurar el parámetro "ServerName"** Si al probar la configuración de Apache obtenemos el error Could not reliably determine the server's fully qualified domain name, debemos ejecutar el siguiente comando, para agregar la directiva «SeverName» al archivo de configuración general de Apache, usando el siguiente comando:
+ 14. **Configurar el parámetro "ServerName"** Si al probar la configuración de Apache obtenemos el error Could not reliably determine the server's fully qualified domain name, debemos ejecutar el siguiente comando, para agregar la directiva «SeverName» al archivo de configuración general de Apache, usando el siguiente comando:
 ```bash
 echo "ServerName webserver" | sudo tee -a /etc/apache2/apache2.conf
 ```
-18. **Habilitar el nuevo sitio:** Si ya no se encuentran errores, habilitamos el sitio y reiniciamos apache nuevamente. 
+15. **Habilitar el nuevo sitio:** Si ya no se encuentran errores, habilitamos el sitio y reiniciamos apache nuevamente. 
 ```bash
 sudo a2ensite michelle.isw811.xyz.conf
 sudo systemctl restart apache2.service
 ```
-19. **Verificar el nuevo sitio:** Ingresamos la URL http://michelle.isw811.xyz.conf
+16. **Verificar el nuevo sitio:** Ingresamos la URL http://michelle.isw811.xyz.conf
  ![image website](./images/final%20site.png "website")
